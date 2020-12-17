@@ -79,8 +79,7 @@ module Wps
       Wps.logger.info "response body: #{body}"
       data = JSON.parse body.to_s
       result = Result.new(data)
-      raise ::Wps::AccessTokenExpiredError if [100014].include?(result.code)
-
+      raise ::Wps::AccessTokenExpiredError if result.token_expired?
       result
     end
 
@@ -94,12 +93,14 @@ module Wps
     end
   end
 
-  class Result
-    attr_reader :code, :data
-
+  class Result < OpenStruct
     def initialize(data)
-      @code = data['result'].to_i
-      @data = data
+      data['code'] = data['result'].to_i
+      super data
+    end
+
+    def token_expired?
+      [100014].include?(code)
     end
 
     def success?
