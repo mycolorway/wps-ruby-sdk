@@ -5,7 +5,7 @@ module Wps
     module Authen
       def index(redirect_uri, state, scope = :user_info)
         uri = ERB::Util.url_encode(redirect_uri)
-        "#{URI::join(API_BASE_URL, 'oauthapi/v2/authorize')}?redirect_uri=#{uri}&app_id=#{app_id}&state=#{state}&response_type=code&scope=#{scope}"
+        "#{URI::join(API_BASE_URL, 'oauthapi/v2/authorize')}?redirect_uri=#{uri}&appid=#{app_id}&state=#{state}&response_type=code&scope=#{scope}"
       end
 
       def access_token(code)
