@@ -28,6 +28,6 @@ module Wps
   end
 
   class Config
-    attr_accessor :default_app_id, :default_app_key, :redis, :http_timeout_options, :logger
+    attr_accessor :default_app_id, :default_app_key, :default_service_id, :redis, :http_timeout_options, :logger
   end
 end
