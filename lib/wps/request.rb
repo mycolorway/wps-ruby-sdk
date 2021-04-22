@@ -81,6 +81,7 @@ module Wps
       data = JSON.parse body.to_s
       result = Result.new(data)
       raise ::Wps::AccessTokenExpiredError if result.token_expired?
+      raise ::Wps::AccessTokenInvalidError if result.token_invalid?
       result
     end
 
@@ -102,6 +103,10 @@ module Wps
 
     def token_expired?
       [100014].include?(code)
+    end
+
+    def token_invalid?
+      [100013].include?(code)
     end
 
     def success?

@@ -16,6 +16,7 @@ module Wps
   class RedisNotConfigException < RuntimeError; end
   class AppNotConfigException < RuntimeError; end
   class AccessTokenExpiredError < RuntimeError; end
+  class AccessTokenInvalidError < RuntimeError; end
   class ResultErrorException < RuntimeError; end
   class ResponseError < StandardError
     attr_reader :error_code
