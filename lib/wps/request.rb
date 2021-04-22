@@ -21,8 +21,9 @@ module Wps
 
     def post(path, post_body, post_header = {})
       request(path, post_header) do |url, header|
-        Wps.logger.info "payload: #{post_body}"
         params = header.delete(:params)
+        Wps.logger.info "payload: #{post_body}"
+        Wps.logger.info "header params: #{params}"
         http.headers(header).post(url, params: params, json: post_body, ssl_context: ssl_context)
       end
     end

@@ -3,7 +3,7 @@ module Wps
     module Pay
       # 判断用户是否有相关权益
       def service_usable(access_token:, openid:, total_num: 0)
-        request.post 'oauthapi/v2/vas/service/usable', params: {
+        request.post 'oauthapi/v2/vas/service/usable', {
           appid: app_id,
           service_id: service_id,
           total_num: total_num,
@@ -14,7 +14,7 @@ module Wps
 
       # 预下单接口
       def preorder(access_token:, openid:, billno:, position:, client_ip:, subject: nil, total_num: 0)
-        request.post 'oauthapi/v2/vas/pay/preorder', params: {
+        request.post 'oauthapi/v2/vas/pay/preorder', {
           appid: app_id,
           service_id: service_id,
           total_num: total_num,
@@ -24,12 +24,12 @@ module Wps
           subject: subject,
           position: position,
           client_ip: client_ip
-        }.reject { |_k, v| v.blank? }
+        }
       end
 
       # 使用用户自身权益
       def service_use(access_token:, openid:, billno:, total_num: 0)
-        request.post 'oauthapi/v2/vas/service/use', params: {
+        request.post 'oauthapi/v2/vas/service/use', {
           appid: app_id,
           service_id: service_id,
           total_num: total_num,
@@ -41,7 +41,7 @@ module Wps
 
       # 零售下单
       def customorder(access_token:, openid:, billno:, subject:, position:, payment: 'qrcode', total_fee: 0, count: 1)
-        request.post 'oauthapi/v2/vas/pay/customorder', params: {
+        request.post 'oauthapi/v2/vas/pay/customorder', {
           appid: app_id,
           service_id: service_id,
           payment: payment,
@@ -57,7 +57,7 @@ module Wps
 
       # 添加会员
       def member_add(access_token:, openid:, orderid:, memberid:, days:, phone:)
-        request.post 'oauthapi/v2/vas/pay/member/add', params: {
+        request.post 'oauthapi/v2/vas/pay/member/add', {
           appid: app_id,
           service_id: service_id,
           openid: openid,
