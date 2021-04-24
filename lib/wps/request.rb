@@ -53,6 +53,7 @@ module Wps
       response = yield(url, header)
       unless response.status.success?
         Wps.logger.error "request #{url} happen error: #{response.body}"
+        handle_response(response, as || :json)
         raise ResponseError.new(response.status, response.body)
       end
       handle_response(response, as || :json)
