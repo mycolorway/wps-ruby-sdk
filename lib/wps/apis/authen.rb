@@ -13,7 +13,7 @@ module Wps
       end
 
       def refresh_access_token(token)
-        request.post 'oauthapi/v2/token/refresh', params: { refresh_token: token, appid: app_id, appkey: app_key }
+        request.post 'oauthapi/v2/token/refresh', { refresh_token: token, appid: app_id, appkey: app_key }
       end
 
       def user_info(access_token, openid)
