@@ -37,7 +37,7 @@ module Wps
           'X-Auth' => authorization,
           'Date' => date,
           'Content-Md5' => content_md5
-        }
+        }.compact
       end
     end
   end
