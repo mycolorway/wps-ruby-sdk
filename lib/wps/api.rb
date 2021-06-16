@@ -6,6 +6,7 @@ module Wps
 
     api_mount :authen
     api_mount :pay
+    api_mount :kopen
 
     attr_reader :app_id, :app_key, :service_id
 

@@ -71,7 +71,7 @@ module Wps
 
       # 获取标签
       def banner_open(access_token:, mod:, position:)
-        request.get'oauthapi/v2/vas/banner/open', params: {
+        request.get 'oauthapi/v2/vas/banner/open', params: {
           appid: app_id,
           mod: mod,
           access_token: access_token,
