@@ -13,15 +13,30 @@ module Wps
       # vip_zcgl | 金山文档
       # office_helper | 办公助手
       def mp_subscribe(access_token:, mpid: :wps_vip)
-        request.get "kopen/pay/v1/wx_adapter/mp/subscribe/#{mpid}", params: { access_token: access_token }
+        url = "kopen/pay/v1/wx_adapter/mp/subscribe/#{mpid}"
+        request.get url, headers(url, { access_token: access_token })
       end
 
       # 推送公众号消息
-      def msg_apipush(access_token:, msg_type:, msg_data:)
-        request.post 'kopen/pay/v1/msg/apipush', {
+      def msg_apipush(access_token:, msg_data:, msg_type: :docer_aliapp_gui_non_pay)
+        request.post 'kopen/pay/v1/msg/apipush', headers('kopen/pay/v1/msg/apipush', {
           access_token: access_token,
           msg_type: msg_type,
           msg_data: msg_data
+        })
+      end
+
+      def headers(url, params)
+        content_type = 'application/json'
+        content_md5 = Digest::MD5.hexdigest(params.to_json)
+        date = Time.now.httpdate
+        authorization = "WPS-3:#{app_id}:#{Digest::SHA1.hexdigest("#{app_key}#{content_md5}#{url}#{content_type}#{date}")}"
+        {
+          params: params,
+          'Content-type' => content_type,
+          'X-Auth' => authorization,
+          'Date' => date,
+          'Content-Md5' => content_md5
         }
       end
     end
