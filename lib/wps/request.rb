@@ -14,6 +14,8 @@ module Wps
     def get(path, get_header = {})
       request(path, get_header) do |url, header|
         params = header.delete(:params)
+        Wps.logger.info "headers: #{header}"
+        Wps.logger.info "header params: #{params}"
         http.headers(header).get(url, params: params, ssl_context: ssl_context)
       end
     end

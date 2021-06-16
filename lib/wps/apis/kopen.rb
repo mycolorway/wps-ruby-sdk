@@ -13,8 +13,8 @@ module Wps
       # vip_zcgl | 金山文档
       # office_helper | 办公助手
       def mp_subscribe(access_token:, mpid: :wps_vip)
-        url = "kopen/pay/v1/wx_adapter/mp/subscribe/#{mpid}"
-        request.get url, headers(url, { access_token: access_token })
+        url = "kopen/pay/v1/wx_adapter/mp/subscribe/#{mpid}?access_token=#{access_token}"
+        request.get url, headers("/#{url}")
       end
 
       # 推送公众号消息
@@ -26,9 +26,9 @@ module Wps
         })
       end
 
-      def headers(url, params)
+      def headers(url, params: nil)
         content_type = 'application/json'
-        content_md5 = Digest::MD5.hexdigest(params.to_json)
+        content_md5 = Digest::MD5.hexdigest(params&.to_json || '')
         date = Time.now.httpdate
         authorization = "WPS-3:#{app_id}:#{Digest::SHA1.hexdigest("#{app_key}#{content_md5}#{url}#{content_type}#{date}")}"
         {
