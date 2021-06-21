@@ -109,7 +109,7 @@ module Wps
     end
 
     def token_invalid?
-      [100013].include?(code)
+      [100013, 10102019].include?(code)
     end
 
     def success?
