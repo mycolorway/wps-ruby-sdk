@@ -19,11 +19,12 @@ module Wps
 
       # 推送公众号消息
       def msg_apipush(access_token:, msg_data:, msg_type: :docer_aliapp_gui_non_pay)
-        request.post 'kopen/pay/v1/msg/apipush', headers('kopen/pay/v1/msg/apipush', {
+        header = headers('/kopen/pay/v1/msg/apipush', params: {
           access_token: access_token,
           msg_type: msg_type,
           msg_data: msg_data
         })
+        request.post 'kopen/pay/v1/msg/apipush', header.delete(:params), header
       end
 
       def headers(url, params: nil)
